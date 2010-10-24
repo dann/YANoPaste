@@ -24,4 +24,10 @@ YANoPaste documentation is available as in POD. So you can do:
 
 to read the documentation online with your favorite pager.
 
+This application is just a demonstration for using 
+Web::Dispatcher::Simple and DBIx::Simple::DataSection.
+
+Almost All templates and logics borrowed from kazeburo's NoNoPaste.
+   http://github.com/kazeburo/NoNoPaste
+
 dann
