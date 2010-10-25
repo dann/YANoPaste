@@ -98,6 +98,11 @@ sub redirect {
     return [302, ['Location' => $location], []]
 }
 
+sub not_found {
+    my $location = shift;
+    return [404 , [], ['Not found']]
+}
+
 # Routing
 my $app = router {
     get '/' => sub {
@@ -203,7 +208,7 @@ $(function() {
 <pre class="prettyprint">
 [% entry.body %]
 </pre>
-<div class="entry_meta"><a href="[% req.uri_for('/entry/',entry.id) %]" class="date">[% entry.ctime %]</a> / <span class="nick">[% entry.nick %]</span></div>
+<div class="entry_meta"><a href="[% req.uri_for('/entry/' . entry.id) %]" class="date">[% entry.ctime %]</a> / <span class="nick">[% entry.nick %]</span></div>
 </div>
 [% END %]
 
@@ -220,12 +225,12 @@ $(function() {
 @@ entry.tt
 [% INCLUDE 'header.tt' %]
 
-<h2 class="subheader"><a href="[% req.uri_for('/entry/', entry.id) %]">[% req.uri_for('/entry/', entry.id) %]</a></h2>
+<h2 class="subheader"><a href="[% req.uri_for('/entry/' . entry.id) %]">[% req.uri_for('/entry/' . entry.id) %]</a></h2>
 <div class="entry">
 <pre class="prettyprint">
 [% entry.body %]
 </pre>
-<div class="entry_meta"><a href="[% req.uri_for('/entry/',entry.id) %]" class="date">[% entry.ctime %]</a> / <span class="nick">[% entry.nick %]</span></div>
+<div class="entry_meta"><a href="[% req.uri_for('/entry/' . entry.id) %]" class="date">[% entry.ctime %]</a> / <span class="nick">[% entry.nick %]</span></div>
 </div>
 
 [% INCLUDE 'footer.tt' %]
