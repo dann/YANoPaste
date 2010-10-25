@@ -1,5 +1,6 @@
 use strict;
 use warnings;
+use utf8;
 use File::Spec;
 use File::Basename;
 use local::lib File::Spec->catdir(dirname(__FILE__), 'extlib');
@@ -57,12 +58,19 @@ sub add_entry {
     my ( $body, $nick ) = @_;
     $body = ''           if !defined $body;
     $nick = 'anonymouse' if !defined $nick;
-
-    my $id = substr Digest::MD5::md5_hex(
-        $$ . 'yanopaste' . join( "\0", @_ ) . rand(1000) ), 0, 16;
+    my $id = generate_id($body, $nick);
     my $rs
         = db()->query_by_sql( 'insert_entry.sql', ( $id, $nick, $body ) );
     return ( $rs->rows == 1 ) ? $id : 0;
+}
+
+sub generate_id {
+    my ($body, $nick) = @_;
+    my $nick_for_id = Encode::encode_utf8($nick);
+    my $body_for_id = Encode::encode_utf8($body);
+    my $id = substr Digest::MD5::md5_hex(
+        $$ . 'yanopaste' . $nick_for_id  . $body_for_id . rand(1000) ), 0, 16;
+    $id;
 }
 
 sub entry_list {

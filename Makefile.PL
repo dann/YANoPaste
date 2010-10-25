@@ -3,7 +3,7 @@ name 'YANoPaste';
 all_from 'lib/YANoPaste.pm';
 
 requires(
-    'Web::Dispatcher::Simple'   => 0.07,
+    'Web::Dispatcher::Simple'   => 0.08,
     'DBIx::Simple::DataSection' => 0.02,
     'Text::Xslate'              => 0,
     'Digest::MD5'               => 0,
